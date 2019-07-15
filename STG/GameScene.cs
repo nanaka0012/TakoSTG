@@ -1,0 +1,122 @@
+﻿using System;
+using System.Collections.Generic;
+using System.Linq;
+using System.Text;
+using System.Threading.Tasks;
+
+namespace STG
+{
+    class GameScene : asd.Scene
+    {
+        asd.Layer2D backlayer;
+        asd.Layer2D gameLayer;
+        asd.Layer2D uiLayer;
+
+        Player player;
+
+        asd.TextObject2D scoreText;
+
+        int count = 0;
+
+        int score = 0;
+
+        bool isSceneChanging = false;
+
+        public void AddScore(int value)
+        {
+            score += value;
+        }
+        
+        protected override void OnRegistered()
+        {
+            backlayer = new asd.Layer2D();
+            AddLayer(backlayer);
+
+            var back = new asd.TextureObject2D
+            {
+                Texture = asd.Engine.Graphics.CreateTexture2D("Back.png")
+            };
+
+            backlayer.AddObject(back);
+
+            //敵と自分がいるレイヤーを追加
+            gameLayer = new asd.Layer2D();
+            AddLayer(gameLayer);
+
+            //背景になるレイヤーを追加
+            uiLayer = new asd.Layer2D();
+            AddLayer(uiLayer);
+
+            //プレイヤーのインスタンスを追加する
+            player = new Player();
+            gameLayer.AddObject(player);
+
+            //スコア表示の為のテキスト仕様の定義
+            scoreText = new asd.TextObject2D
+            {
+                Font = asd.Engine.Graphics.CreateDynamicFont(
+                    "mplus-1m-medium.ttf", 30, new asd.Color(255, 255, 255), 
+                    0, new asd.Color(0, 0, 0, 0)
+                    )
+            };
+
+            //スコア表示を背景レイヤーに追加する
+            uiLayer.AddObject(scoreText);
+
+        }
+
+        protected override void OnUpdated()
+        {
+            count++;
+
+            AddEnemy();
+
+            scoreText.Text = "Score: " + score.ToString();
+
+        }
+
+
+        void AddEnemy()
+        {
+            if (player.IsAlive)
+            {
+                if (count % 120 == 0)
+                {
+                    var enemy = new MovingEnemy(player, this)
+                    {
+                        Position = new asd.Vector2DF(player.Position.X, 0.0f)
+                    };
+                    gameLayer.AddObject(enemy);
+                }
+
+                if(count % 180 == 0)
+                {
+                    var enemy = new TamaEnemy(player, this, new asd.Vector2DF(1.0f, 0.0f))
+                    {
+                        Position = new asd.Vector2DF(-50.0f, 50.0f)
+                    };
+                    gameLayer.AddObject(enemy);
+                }
+
+                if (count % 300 == 0)
+                {
+                    var enemy = new TamaEnemy(player, this, new asd.Vector2DF(0.0f, 1.0f))
+                    {
+                        Position = new asd.Vector2DF(50.0f, -50.0f)
+                    };
+                    gameLayer.AddObject(enemy);
+                }
+            }
+            else
+            {
+                if (!isSceneChanging)
+                {
+                    isSceneChanging = true;
+                    asd.Engine.ChangeSceneWithTransition(new GameoverScene(), new asd.TransitionFade(0.5f, 0.5f));
+                }
+            }
+
+        }
+
+    }
+}
