@@ -12,22 +12,23 @@ namespace STG
         readonly float speed = 2.0f;
 
         int fireCount = 0;
+        float count = (float)Math.PI / 2;
 
         asd.Vector2DF dir;
 
         bool HasEnteredWindow = false;
 
-        public TamaEnemy(Player player, GameScene scene, asd.Vector2DF dir)
+        public TamaEnemy(Player player, GameScene scene)
             : base(player, scene)
         {
-            this.dir = dir;
-
             score = 150;
         }
 
         protected override void OnAdded()
         {
+            dir = new asd.Vector2DF(0, 1);
             Texture = asd.Engine.Graphics.CreateTexture2D("Enemy2.png");
+            CenterPosition = Texture.Size.To2DF() / 2;
             SetRadius();
         }
 
@@ -43,6 +44,7 @@ namespace STG
                 {
                     Dispose();
                 }
+                count += 0.006f;
             }
             else
             {
@@ -55,7 +57,9 @@ namespace STG
 
         void Move()
         {
-            Position += dir * speed;
+            var actuaryDir = dir;
+            actuaryDir.Degree += (float)Math.Sin(count) * 30;
+            Position += actuaryDir * speed;
         }
 
         void Fire()
@@ -63,7 +67,7 @@ namespace STG
             if (player.IsAlive)
             {
                 fireCount++;
-                if (fireCount == 60)
+                if (fireCount == 180)
                 {
                     fireCount = 0;
 

@@ -25,9 +25,18 @@ namespace STG
             layer.AddObject(titleImage);
 
             // Play BGM
-            asd.SoundSource bgm = asd.Engine.Sound.CreateSoundSource("Bgm.ogg", true);
+            // 音声ファイルを読み込む。BGMの場合、第２引数を false に設定することで、再生しながらファイルを解凍することが推奨されている。
+            asd.SoundSource bgm1 = asd.Engine.Sound.CreateSoundSource("bgm.ogg", false);
 
-            int id_bgm = asd.Engine.Sound.Play(bgm);
+            // 音声のループを有効にする。
+            bgm1.IsLoopingMode = true;
+
+            // 音声のループ始端を1秒に、ループ終端を6秒に設定する。
+            bgm1.LoopStartingPoint = 0f;
+            bgm1.LoopEndPoint = bgm1.Length;
+
+            // 音声を再生する。
+            int id_bgm1 = asd.Engine.Sound.Play(bgm1);
 
         }
 

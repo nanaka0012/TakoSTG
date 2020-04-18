@@ -13,6 +13,7 @@ namespace STG
         asd.Layer2D uiLayer;
 
         Player player;
+        Random Random { get; } = new Random();
 
         asd.TextObject2D scoreText;
 
@@ -84,23 +85,23 @@ namespace STG
                 {
                     var enemy = new MovingEnemy(player, this)
                     {
-                        Position = new asd.Vector2DF(player.Position.X, 0.0f)
+                        Position = new asd.Vector2DF(1060, Random.Next(100, 620))
                     };
                     gameLayer.AddObject(enemy);
                 }
 
-                if(count % 180 == 0)
+                if(count % 150 == 0)
                 {
-                    var enemy = new TamaEnemy(player, this, new asd.Vector2DF(1.0f, 0.0f))
+                    var enemy = new TamaEnemy(player, this)
                     {
-                        Position = new asd.Vector2DF(-50.0f, 50.0f)
+                        Position = new asd.Vector2DF(Random.Next(900, 1060), Random.Next(-200, -100))
                     };
                     gameLayer.AddObject(enemy);
                 }
 
-                if (count % 300 == 0)
+                if (count % 450 == 0)
                 {
-                    var enemy = new TamaEnemy(player, this, new asd.Vector2DF(0.0f, 1.0f))
+                    var enemy = new RareEnemy(player, this, new asd.Vector2DF(0.0f, 1.0f))
                     {
                         Position = new asd.Vector2DF(50.0f, -50.0f)
                     };

@@ -16,6 +16,8 @@ namespace STG
 
         asd.Vector2DF dir;
 
+        int count = 0;
+
         public MovingEnemy(Player player, GameScene scene)
             : base(player, scene)
         {
@@ -24,7 +26,9 @@ namespace STG
 
         protected override void OnAdded()
         {
+            dir = (player.Position - Position).Normal;
             Texture = asd.Engine.Graphics.CreateTexture2D("Enemy1.png");
+            CenterPosition = Texture.Size.To2DF() / 2;
             SetRadius();
         }
 
@@ -38,24 +42,16 @@ namespace STG
             {
                 Dispose();
             }
+            count++;
         }
 
         void Move()
         {
             if (player.IsAlive)
             {
-                if (Position.Y < player.Position.Y)
-                {
-                    dir = (player.Position - Position);
-                    dir.Normalize();
-                }
-
-                velocity += dir * power;
-
-                var v = velocity;
-                v.Normalize();
-
-                Position += v * speed;
+                var actuaryDir = dir;
+                actuaryDir.Degree += (float)Math.Sin(count / 100f) * 30;
+                Position += actuaryDir * speed;
             }
         }
     }

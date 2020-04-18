@@ -20,6 +20,7 @@ namespace STG
             Texture = asd.Engine.Graphics.CreateTexture2D("Player.png");
             CenterPosition = Texture.Size.To2DF() / 2.0f;
             SetRadius();
+            radius -= 5;
         }
 
         protected override void OnUpdate()
