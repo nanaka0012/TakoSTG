@@ -20,6 +20,8 @@ namespace STG
         int count = 0;
         int rareEnemyCount = 0;
 
+        int level = 0;
+
         int score = 0;
 
         bool isSceneChanging = false;
@@ -84,43 +86,43 @@ namespace STG
         {
             if (player.IsAlive)
             {
-                if (count % 180 == 0)
+                if (count % (200 - level) == 0)
                 {
                     var enemy = new MovingEnemy(player, this)
                     {
-                        Position = new asd.Vector2DF(1060, Random.Next(100, 620))
+                        Position = new asd.Vector2DF(1020, Random.Next(-60, 200))
                     };
                     gameLayer.AddObject(enemy);
                 }
 
-                if (count % 180 == 0)
+                if (count % (200 - level) == 0)
                 {
-                    var enemy = new MovingEnemy(player, this)
+                    var enemy = new MovingEnemyUnder(player, this)
                     {
-                        Position = new asd.Vector2DF(960, Random.Next(-100, -80))
+                        Position = new asd.Vector2DF(1020, Random.Next(500, 780))
                     };
                     gameLayer.AddObject(enemy);
                 }
 
-                if (count % 180 == 0)
-                {
-                    var enemy = new MovingEnemy(player, this)
-                    {
-                        Position = new asd.Vector2DF(960, Random.Next(820, 840))
-                    };
-                    gameLayer.AddObject(enemy);
-                }
-
-                if (count % 250 == 0)
+                if (count % (360 - level) == 0)
                 {
                     var enemy = new TamaEnemy(player, this)
                     {
-                        Position = new asd.Vector2DF(Random.Next(900, 1060), Random.Next(-200, -100))
+                        Position = new asd.Vector2DF(Random.Next(900, 980), Random.Next(-200, -100))
                     };
                     gameLayer.AddObject(enemy);
                 }
 
-                if (Random.Next(0, 500) == 0 && rareEnemyCount >= 720)
+                if (count % (250 - level) == 0)
+                {
+                    var enemy = new TamaEnemyUnder(player, this)
+                    {
+                        Position = new asd.Vector2DF(Random.Next(1020, 1040), Random.Next(780, 880))
+                    };
+                    gameLayer.AddObject(enemy);
+                }
+
+                if (Random.Next(0, 1000) == 0 && rareEnemyCount >= 720)
                 {
                     var enemy = new RareEnemy(player, this, new asd.Vector2DF(0.0f, 1.0f))
                     {
@@ -130,9 +132,19 @@ namespace STG
                     rareEnemyCount = 0;
                 }
 
-                if (count >= 900)
+                if (count >= 3000)
                 {
-                    count++;
+                    level = 80;
+                }
+
+                if (count >= 4500)
+                {
+                    level = 120;
+                }
+
+                if (count >= 7200)
+                {
+                    level = 175;
                 }
             }
             else
