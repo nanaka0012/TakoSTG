@@ -13,7 +13,7 @@ namespace STG
 
         protected void SetRadius()
         {
-            radius = Texture.Size.X / 2.0f;
+            radius = Texture.Size.Y / 2.0f;
         }
 
         protected bool OutOfWindow()

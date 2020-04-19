@@ -26,6 +26,7 @@ namespace STG
             {
                 if (IsCollide(o))
                 {
+                    scene.AddScore(score);
                     o.Dispose();
                     Dispose();
                     break;
@@ -35,7 +36,7 @@ namespace STG
 
         protected override void OnDispose()
         {
-            scene.AddScore(score);
+
         }
 
     }

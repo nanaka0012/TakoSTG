@@ -18,6 +18,7 @@ namespace STG
         asd.TextObject2D scoreText;
 
         int count = 0;
+        int rareEnemyCount = 0;
 
         int score = 0;
 
@@ -69,10 +70,12 @@ namespace STG
         protected override void OnUpdated()
         {
             count++;
+            rareEnemyCount++;
 
             AddEnemy();
 
             scoreText.Text = "Score: " + score.ToString();
+            scoreText.Position = new asd.Vector2DF(10, 670);
 
         }
 
@@ -81,7 +84,7 @@ namespace STG
         {
             if (player.IsAlive)
             {
-                if (count % 120 == 0)
+                if (count % 180 == 0)
                 {
                     var enemy = new MovingEnemy(player, this)
                     {
@@ -90,7 +93,25 @@ namespace STG
                     gameLayer.AddObject(enemy);
                 }
 
-                if(count % 150 == 0)
+                if (count % 180 == 0)
+                {
+                    var enemy = new MovingEnemy(player, this)
+                    {
+                        Position = new asd.Vector2DF(960, Random.Next(-100, -80))
+                    };
+                    gameLayer.AddObject(enemy);
+                }
+
+                if (count % 180 == 0)
+                {
+                    var enemy = new MovingEnemy(player, this)
+                    {
+                        Position = new asd.Vector2DF(960, Random.Next(820, 840))
+                    };
+                    gameLayer.AddObject(enemy);
+                }
+
+                if (count % 250 == 0)
                 {
                     var enemy = new TamaEnemy(player, this)
                     {
@@ -99,13 +120,19 @@ namespace STG
                     gameLayer.AddObject(enemy);
                 }
 
-                if (count % 450 == 0)
+                if (Random.Next(0, 500) == 0 && rareEnemyCount >= 720)
                 {
                     var enemy = new RareEnemy(player, this, new asd.Vector2DF(0.0f, 1.0f))
                     {
                         Position = new asd.Vector2DF(-50.0f, 100.0f)
                     };
                     gameLayer.AddObject(enemy);
+                    rareEnemyCount = 0;
+                }
+
+                if (count >= 900)
+                {
+                    count++;
                 }
             }
             else
