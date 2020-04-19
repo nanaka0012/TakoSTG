@@ -103,7 +103,7 @@ namespace STG
                 {
                     var enemy = new RareEnemy(player, this, new asd.Vector2DF(0.0f, 1.0f))
                     {
-                        Position = new asd.Vector2DF(50.0f, -50.0f)
+                        Position = new asd.Vector2DF(-50.0f, 100.0f)
                     };
                     gameLayer.AddObject(enemy);
                 }

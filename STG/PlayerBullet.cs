@@ -29,7 +29,7 @@ namespace STG
 
         private void Move()
         {
-            Position += new asd.Vector2DF(0.0f, -1.0f) * speed;
+            Position += new asd.Vector2DF(1.0f, 0.0f) * speed;
         }
 
     }

@@ -10,6 +10,8 @@ namespace STG
     {
         readonly float speed = 3.0f;
 
+        int fireCount = 0;
+
         public Player()
         {
             Position = asd.Engine.WindowSize.To2DF() / 2.0f;
@@ -69,7 +71,8 @@ namespace STG
 
         private void Fire()
         {
-            if (asd.Engine.Keyboard.GetKeyState(asd.Keys.Z) == asd.KeyState.Push)
+            fireCount++;
+            if (asd.Engine.Keyboard.GetKeyState(asd.Keys.Z) == asd.KeyState.Push && fireCount > 30)
             {
                 // Play SE
                 asd.SoundSource shot = asd.Engine.Sound.CreateSoundSource("shot.wav", true);
@@ -82,6 +85,7 @@ namespace STG
                 };
 
                 Layer.AddObject(bullet);
+                fireCount = 0;
             }
         }
 
