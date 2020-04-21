@@ -75,7 +75,7 @@ namespace STG
             if (asd.Engine.Keyboard.GetKeyState(asd.Keys.Z) == asd.KeyState.Push && fireCount > 20)
             {
                 // Play SE
-                asd.SoundSource shot = asd.Engine.Sound.CreateSoundSource("shot.wav", true);
+                asd.SoundSource shot = asd.Engine.Sound.CreateSoundSource("shot.ogg", true);
 
                 int id_shot = asd.Engine.Sound.Play(shot);
 

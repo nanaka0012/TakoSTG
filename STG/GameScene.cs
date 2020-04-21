@@ -17,7 +17,7 @@ namespace STG
 
         asd.TextObject2D scoreText;
 
-        int count = 0;
+        int count = 130;
         int rareEnemyCount = 0;
 
         int level = 0;
@@ -86,7 +86,7 @@ namespace STG
         {
             if (player.IsAlive)
             {
-                if (count % (180 - level) == 0)
+                if (count % (180 - level) == 0 && count >= 1000)
                 {
                     var enemy = new MovingEnemy(player, this)
                     {
@@ -104,7 +104,7 @@ namespace STG
                     gameLayer.AddObject(enemy);
                 }
 
-                if (count % (300 - level) == 0 && count >= 600)
+                if (count % (300 - level) == 0)
                 {
                     var enemy = new MovingEnemyUnder(player, this)
                     {
@@ -113,7 +113,7 @@ namespace STG
                     gameLayer.AddObject(enemy);
                 }
 
-                if (count % (360 - level) == 0 && count >= 1800)
+                if (count % (360 - level) == 0)
                 {
                     var enemy = new TamaEnemy(player, this)
                     {
@@ -122,7 +122,7 @@ namespace STG
                     gameLayer.AddObject(enemy);
                 }
 
-                if (count % (250 - level) == 0 && count >= 3000)
+                if (count % (250 - level) == 0 && count >= 1800)
                 {
                     var enemy = new TamaEnemyUnder(player, this)
                     {
@@ -143,22 +143,22 @@ namespace STG
 
                 if (count >= 4500)
                 {
-                    level = 30;
+                    level = 50;
                 }
 
                 if (count >= 6000)
                 {
-                    level = 50;
+                    level = 80;
                 }
 
                 if (count >= 7200)
                 {
-                    level = 80;
+                    level = 100;
                 }
 
                 if (count >= 7500)
                 {
-                    level = 100;
+                    level = 150;
                 }
             }
             else

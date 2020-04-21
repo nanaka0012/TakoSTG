@@ -23,7 +23,7 @@ namespace STG
         {
             Texture = asd.Engine.Graphics.CreateTexture2D("EnemyBullet.png");
             SetRadius();
-
+            radius -= 1;
         }
 
         protected override void OnUpdate()
