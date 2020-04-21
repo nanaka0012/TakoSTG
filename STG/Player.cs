@@ -14,7 +14,7 @@ namespace STG
 
         public Player()
         {
-            Position = asd.Engine.WindowSize.To2DF() / 2.0f;
+            Position = new asd.Vector2DF(asd.Engine.WindowSize.X / 3, asd.Engine.WindowSize.Y / 2);
         }
 
         protected override void OnAdded()
@@ -22,7 +22,7 @@ namespace STG
             Texture = asd.Engine.Graphics.CreateTexture2D("Player.png");
             CenterPosition = Texture.Size.To2DF() / 2.0f;
             SetRadius();
-            radius -= 12;
+            radius -= 15;
         }
 
         protected override void OnUpdate()
@@ -39,22 +39,22 @@ namespace STG
         {
             if (asd.Engine.Keyboard.GetKeyState(asd.Keys.Right) == asd.KeyState.Hold)
             {
-                Position += new asd.Vector2DF(1.0f, 0.0f) * speed;
+                Position += new asd.Vector2DF(1.2f, 0.0f) * speed;
             }
 
             if (asd.Engine.Keyboard.GetKeyState(asd.Keys.Left) == asd.KeyState.Hold)
             {
-                Position += new asd.Vector2DF(-1.0f, 0.0f) * speed;
+                Position += new asd.Vector2DF(-1.2f, 0.0f) * speed;
             }
 
             if (asd.Engine.Keyboard.GetKeyState(asd.Keys.Up) == asd.KeyState.Hold)
             {
-                Position += new asd.Vector2DF(0.0f, -1.0f) * speed;
+                Position += new asd.Vector2DF(0.0f, -1.2f) * speed;
             }
 
             if (asd.Engine.Keyboard.GetKeyState(asd.Keys.Down) == asd.KeyState.Hold)
             {
-                Position += new asd.Vector2DF(0.0f, 1.0f) * speed;
+                Position += new asd.Vector2DF(0.0f, 1.2f) * speed;
             }
 
             var ws = asd.Engine.WindowSize.To2DF();
@@ -72,7 +72,7 @@ namespace STG
         private void Fire()
         {
             fireCount++;
-            if (asd.Engine.Keyboard.GetKeyState(asd.Keys.Z) == asd.KeyState.Push && fireCount > 30)
+            if (asd.Engine.Keyboard.GetKeyState(asd.Keys.Z) == asd.KeyState.Push && fireCount > 20)
             {
                 // Play SE
                 asd.SoundSource shot = asd.Engine.Sound.CreateSoundSource("shot.wav", true);
@@ -81,7 +81,7 @@ namespace STG
 
                 var bullet = new PlayerBullet
                 {
-                    Position = Position
+                    Position = Position + new asd.Vector2DF(40, 0)
                 };
 
                 Layer.AddObject(bullet);

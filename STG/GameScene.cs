@@ -86,16 +86,25 @@ namespace STG
         {
             if (player.IsAlive)
             {
-                if (count % (200 - level) == 0)
+                if (count % (180 - level) == 0)
                 {
                     var enemy = new MovingEnemy(player, this)
                     {
-                        Position = new asd.Vector2DF(1020, Random.Next(-60, 200))
+                        Position = new asd.Vector2DF(Random.Next(1020, 1260), Random.Next(300, 500))
                     };
                     gameLayer.AddObject(enemy);
                 }
 
-                if (count % (200 - level) == 0)
+                if (count % (360 - level) == 0)
+                {
+                    var enemy = new MovingEnemy(player, this)
+                    {
+                        Position = new asd.Vector2DF(1020, Random.Next(0, 200))
+                    };
+                    gameLayer.AddObject(enemy);
+                }
+
+                if (count % (300 - level) == 0 && count >= 600)
                 {
                     var enemy = new MovingEnemyUnder(player, this)
                     {
@@ -104,7 +113,7 @@ namespace STG
                     gameLayer.AddObject(enemy);
                 }
 
-                if (count % (360 - level) == 0)
+                if (count % (360 - level) == 0 && count >= 1800)
                 {
                     var enemy = new TamaEnemy(player, this)
                     {
@@ -113,7 +122,7 @@ namespace STG
                     gameLayer.AddObject(enemy);
                 }
 
-                if (count % (250 - level) == 0)
+                if (count % (250 - level) == 0 && count >= 3000)
                 {
                     var enemy = new TamaEnemyUnder(player, this)
                     {
@@ -132,19 +141,24 @@ namespace STG
                     rareEnemyCount = 0;
                 }
 
-                if (count >= 3000)
-                {
-                    level = 80;
-                }
-
                 if (count >= 4500)
                 {
-                    level = 120;
+                    level = 30;
+                }
+
+                if (count >= 6000)
+                {
+                    level = 50;
                 }
 
                 if (count >= 7200)
                 {
-                    level = 175;
+                    level = 80;
+                }
+
+                if (count >= 7500)
+                {
+                    level = 100;
                 }
             }
             else

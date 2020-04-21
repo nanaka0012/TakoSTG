@@ -50,7 +50,7 @@ namespace STG
             if (player.IsAlive)
             {
                 var actuaryDir = dir;
-                actuaryDir.Degree -= (float)Math.Sin(count / 60f) * 60;
+                actuaryDir.Degree -= (float)Math.Sin(count / 45f) * 60;
                 Position += actuaryDir * speed;
             }
         }
